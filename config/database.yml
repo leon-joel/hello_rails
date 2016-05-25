@@ -1,0 +1,21 @@
+development:
+  adapter: mysql2
+  host: localhost
+  username: root
+  password:
+  database: hello_rails_development
+  encoding: utf8
+
+test:
+  adapter: mysql2
+  host: localhost
+  username: root
+  password:
+  encoding: utf8
+  database: hello_rails_test
+
+production:
+  adapter: mysql2
+  encoding: unicode
+  database: hello_rails_production
+  pool: 5
