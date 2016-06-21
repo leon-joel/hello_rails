@@ -35,6 +35,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  # Windows環境では正しく動かないっぽい
+  # gem 'pry-rails'
+  # gem 'pry-doc'
+  # gem 'pry-byebug'
+  # gem 'pry-stack_explorer'
 end
 
 group :development do
@@ -42,8 +48,12 @@ group :development do
   gem 'web-console', '~> 2.0'
 
   # Rails Console 上で ActiveRecord の結果を見やすく整形してくれるツール
+  # Usage: rails c してから、Hirb.enable を実行するだけ
   gem 'hirb'
   gem 'hirb-unicode'
+
+  # assetsへのアクセスログ出力を抑止する ※『実践Ruby on Rails4』p.308
+  gem 'quiet_assets'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
