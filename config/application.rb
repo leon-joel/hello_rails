@@ -37,7 +37,7 @@ module HelloRails
     config.action_view.logger = nil
 
     # デフォルトのテンプレートエンジン
-    # config.generators.template_engine = :slim
+    config.generators.template_engine = :haml
 
     # assetsへのアクセスログを抑止するgem "quiet_assets" を使う?
     # config.quiet_assets = false

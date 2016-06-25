@@ -1,0 +1,29 @@
+p id="notice"
+  = notice
+
+p
+  strong Title:
+  = @blog.title
+
+h4 Comments
+
+table
+  thead
+  tr
+    th id
+    th body
+    th status
+    th entry_id
+
+  tbody
+  - @comments.each do |c|
+    tr
+      td = c.id
+      td = c.body
+      td = c.status
+      td = c.entry_id
+
+br
+
+/ = link_to 'Edit', edit_entry_path(@entry)
+= link_to 'Back', blogs_path

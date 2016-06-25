@@ -1,0 +1,23 @@
+p id="notice"
+  = notice
+
+h1
+  = @subtitle ? @subtitle : "Listing Blogs"
+
+table
+  thead
+  tr
+    th Title
+    th colspan="3"
+
+  tbody
+  - @blogs.each do |blog|
+    tr
+      td = blog.title
+      td = link_to 'Show', blog
+      / td = link_to 'Edit', edit_entry_path(entry)
+      / td = link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' }
+
+br
+
+/ <%= link_to 'New Blog', new_entry_path %>

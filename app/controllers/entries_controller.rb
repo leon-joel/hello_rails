@@ -153,11 +153,11 @@ class EntriesController < ApplicationController
     # r = Blog.joins(:entries)
     #         .where(id: 1)
     #         .select("blogs.*, entries.title AS entry_title, entries.body")
-    r = Blog.joins(entries: :comments)
-            .where(entries: { id: [*1..3] })
-            .select("blogs.*, entries.title AS entry_title, entries.body, comments.body AS comment_body")
-            .explain    # EXPLAIN
-    puts r              # explain結果は文字列
+    # r = Blog.joins(entries: :comments)
+    #         .where(entries: { id: [*1..3] })
+    #         .select("blogs.*, entries.title AS entry_title, entries.body, comments.body AS comment_body")
+    #         .explain    # EXPLAIN
+    # puts r              # explain結果は文字列
 
     # r.each do |e|
     #   p e             # Blogの属性しか見えない
@@ -167,6 +167,7 @@ class EntriesController < ApplicationController
     #   puts "blog title: #{e.title}, entry title: #{e.entry_title}"
     #   # puts "blog title: #{e.title}, entry title: #{e.entry_title}, comment body: #{e.comment_body}"
     # end
+
 
   end
 

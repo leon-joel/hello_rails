@@ -7,7 +7,7 @@ class CreateBlogs < ActiveRecord::Migration
     end
 
     change_table :entries do |t|
-      t.references :blog, index: true, foreign_key: true
+      t.references :blogs, index: true, foreign_key: true
     end
   end
 end

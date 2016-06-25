@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  resources :entries do
-    resources :comments
+  root 'blogs#index'
+
+  get 'blogs/index_no_entry' => 'blogs#index_no_entry'
+  get 'blogs/index_with_unapproved_comment' => 'blogs#index_with_unapproved_comment'
+
+  resources :blogs, { only: [ :index, :show ] } do
+    resources :entries do
+      resources :comments
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
