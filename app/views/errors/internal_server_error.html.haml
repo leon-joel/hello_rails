@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %title Internal Server Error (404)
+    = stylesheet_link_tag 'error', media: 'all', "data-turbolinks-track" => true
+
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+  %body
+    .dialog
+      %div
+        %h1 何か問題が発生しているようです
+        %p すみません&lt;(_ _)&gt;
+        %p ブラウザの設定でJavaScriptがOFFになっている場合は、ONにしてからやり直してください。
+
+      %p （アプリケーションの管理者はログを確認してください。）

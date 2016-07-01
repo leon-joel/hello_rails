@@ -16,6 +16,8 @@ test:
 
 production:
   adapter: mysql2
-  encoding: unicode
+  encoding: utf8
   database: hello_rails_production
+  username: root
+  password:
   pool: 5
