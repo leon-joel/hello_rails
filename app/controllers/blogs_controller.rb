@@ -2,7 +2,7 @@ class BlogsController < ApplicationController
   before_action :set_blog, only: [:show ]
 
   def index
-    raise IpAddressRejected
+    # raise IpAddressRejected
     @blogs = Blog.all
   end
 
