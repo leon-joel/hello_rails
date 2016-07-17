@@ -57,6 +57,10 @@ group :development do
 
   # assetsへのアクセスログ出力を抑止する ※『実践Ruby on Rails4』p.308
   gem 'quiet_assets'
+
+  # Error時の表示を分かりやすく
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

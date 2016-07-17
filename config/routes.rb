@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'misc/charactor'
+
   root 'blogs#index'
 
   get 'blogs/index_no_entry' => 'blogs#index_no_entry'
@@ -9,6 +11,11 @@ Rails.application.routes.draw do
       resources :comments
     end
   end
+
+
+  match ':controller(/:action(/:id))', via: [ :get, :post, :patch ]
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
