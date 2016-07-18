@@ -9,7 +9,7 @@ $(document).on 'ready page:load', ->
   $(document).on 'click', '#getResult', ->
   # 名前の取得
     name = $("#name").val()   # ここで()を忘れていて大ハマり！
-    console.log(name)
+#    console.log(name)
 
     if name == ""
       alert("名前を入力してください!")
@@ -73,31 +73,37 @@ $(document).on 'ready page:load', ->
 
     if level == 0
       $('#score').text('')
-      t1 = new Date().getTime() # ★★★★★★★
-      console.log "t1 = #{t1}"
+      t1 = new Date().getTime() # ★
+#      console.log "t1 = #{t1}"
+
+    $("#target_string").text("#{seikai} を探せ！")
+
+    offset = Math.floor(Math.random() * (dim_x * dim_y))
+    dummy_offset = []
+
+    # ヒント有無
+    is_hint = $("[name=hint]").prop('checked')
+    if is_hint
+      for i in [0..(level+1)**2]
+        dummy_offset.push Math.floor(Math.random() * (dim_x * dim_y))
 
     # dim_x * dim_y のspan要素を作って #cells に突っ込む
     cells = ''
-    for i in [1..(dim_x * dim_y)]
-      cells += """<span class="chars" id="s#{i}"></span>"""
-      if i % dim_x == 0
+    seikai_char = if is_hint then "seikai_char" else "" # scriptでCSS値を変更したかったがなぜか出来なかったので、class属性のON/OFFで切り替える
+    for k in [1..(dim_x * dim_y)]
+      if k == offset
+        cells += """<span class="chars #{seikai_char}" id="s#{k}">#{seikai}</span>"""
+      else if k in dummy_offset
+        cells += """<span class="chars #{seikai_char}" id="s#{k}">#{dummy}</span>"""
+      else
+        cells += """<span class="chars" id="s#{k}">#{dummy}</span>"""
+      if k % dim_x == 0
         cells += '<br/>'
 
     $('#cells').html(cells)
 
-    # dummy で埋められた配列を作る
-    chars = []
-    for j in [0..(dim_x * dim_y)-1]
-      chars.push(dummy)
-
-    # 配列のうち一つをseikaiにする
-    offset = Math.floor(Math.random() * chars.length)
-    chars.splice(offset, 1, seikai)
-
-    # span要素にそれらの配列の値をはめ込む
-    for k in [1..chars.length]
-      $('#s'+k).text(chars[k-1])
-      $('#s'+k).click(->
+    for l in [1..(dim_x * dim_y)]
+      $('#s'+l).click(->
         if $(this).text() == seikai
           if (level < MAX_LEVEL)
             level++
@@ -107,10 +113,21 @@ $(document).on 'ready page:load', ->
 
           else
             t2 = new Date().getTime()
-            console.log "t1 = #{t1}, t2 = #{t2}"
-            console.log "diff = #{t2 - t1}"
+            #console.log "t1 = #{t1}, t2 = #{t2}"
+            #console.log "diff = #{t2 - t1}"
             $('#score').text("Your score is #{(t2 - t1)/1000} sec")
-            level = 0
-            dim_x = dim_y = DIM_FIRST
+            init_cells()
             return false
+        else
+          $('#score').text("敗北！！！！！")
+          init_cells()
+          return false
       )
+
+  init_cells = -> (
+    $("#target_string").text("")
+    $('#cells').html("")
+    level = 0
+    dim_x = dim_y = DIM_FIRST
+    t1 = 0
+  )

@@ -4,4 +4,8 @@
 
 span.chars {
   cursor: pointer;
+
+  &.seikai_char {
+    color: red;
+  }
 }
