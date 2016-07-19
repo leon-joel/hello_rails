@@ -7,9 +7,13 @@ class MiscController < ApplicationController
   def find_mistake
   end
 
+  def slideshow
+    render layout: false
+  end
+
   private
   def set_title
-    @title = __method__
+    @title = action_name
   end
 
 end
