@@ -8,7 +8,6 @@ class MiscController < ApplicationController
   end
 
   def slideshow
-    render layout: false
   end
 
   private

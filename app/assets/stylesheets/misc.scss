@@ -9,3 +9,19 @@ span.chars {
     color: red;
   }
 }
+
+// jQueryでつくるスライドショー http://dotinstall.com/lessons/slideshow_jquery
+.thumbnail {
+  width: 125px;
+  height: 83px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.current {
+  opacity: 1.0;
+}
+
+/* 隣接セレクタで thumbnail間に隙間を空ける */
+.thumbnail + .thumbnail {
+  margin-left: 4px;
+}
