@@ -61,12 +61,14 @@ $(document).on 'ready page:load', ->
   DIM_DELTA_Y = 2
   dim_x = DIM_FIRST
   dim_y = DIM_FIRST
-
-  $(document).on 'click', '#game_start', ->
-    gameStart()
-
   # 開始時刻 ※CoffeeScriptは全てがローカル変数なので、Javascriptのように★部分での定義だけでOKというわけにはいかない
   t1 = 0
+  penarty = 0
+
+  $(document).on 'click', '#game_start', ->
+    init_cells()
+    gameStart()
+
   gameStart = ->
     dummy = games[level][0]
     seikai = games[level][1]
@@ -74,11 +76,12 @@ $(document).on 'ready page:load', ->
     if level == 0
       $('#score').text('')
       t1 = new Date().getTime() # ★
-#      console.log "t1 = #{t1}"
+    #      console.log "t1 = #{t1}"
 
     $("#target_string").text("#{seikai} を探せ！")
 
     offset = Math.floor(Math.random() * (dim_x * dim_y))
+    console.log "offset = #{offset}"
     dummy_offset = []
 
     # ヒント有無
@@ -90,19 +93,19 @@ $(document).on 'ready page:load', ->
     # dim_x * dim_y のspan要素を作って #cells に突っ込む
     cells = ''
     seikai_char = if is_hint then "seikai_char" else "" # scriptでCSS値を変更したかったがなぜか出来なかったので、class属性のON/OFFで切り替える
-    for k in [1..(dim_x * dim_y)]
+    for k in [0..(dim_x * dim_y - 1)]
       if k == offset
         cells += """<span class="chars #{seikai_char}" id="s#{k}">#{seikai}</span>"""
       else if k in dummy_offset
         cells += """<span class="chars #{seikai_char}" id="s#{k}">#{dummy}</span>"""
       else
         cells += """<span class="chars" id="s#{k}">#{dummy}</span>"""
-      if k % dim_x == 0
+      if k % dim_x == (dim_x - 1)
         cells += '<br/>'
 
     $('#cells').html(cells)
 
-    for l in [1..(dim_x * dim_y)]
+    for l in [0..(dim_x * dim_y - 1)]
       $('#s'+l).click(->
         if $(this).text() == seikai
           if (level < MAX_LEVEL)
@@ -115,19 +118,21 @@ $(document).on 'ready page:load', ->
             t2 = new Date().getTime()
             #console.log "t1 = #{t1}, t2 = #{t2}"
             #console.log "diff = #{t2 - t1}"
-            $('#score').text("Your score is #{(t2 - t1)/1000} sec")
+            elapse = (t2 - t1)/1000
+            $('#score').text("#{(elapse + penarty).toFixed(3)} 秒（タイム#{elapse.toFixed(3)}秒 ＋ ペナルティ#{penarty}秒）")
             init_cells()
             return false
         else
-          $('#score').text("敗北！！！！！")
-          init_cells()
-          return false
+          penarty += 1
+          $('#penarty').text("（ペナルティ #{penarty} 秒）")
       )
 
   init_cells = -> (
     $("#target_string").text("")
+    $('#penarty').text("")
     $('#cells').html("")
     level = 0
     dim_x = dim_y = DIM_FIRST
     t1 = 0
+    penarty = 0
   )

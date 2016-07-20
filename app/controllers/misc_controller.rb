@@ -5,6 +5,7 @@ class MiscController < ApplicationController
   end
 
   def find_mistake
+    render :layout => false
   end
 
   private

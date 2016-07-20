@@ -1,9 +1,23 @@
-h1 間違い探しゲーム!
-p
-  / onclick属性でのjavascript関数呼び出しが上手くいかない…
-  input#game_start type="button" value="開始！"
-  input#hint type="checkbox" name='hint' value="on"
-    | ヒント有り
-p#target_string
-p#score
-#cells
+doctype html
+html
+  head
+    title = '間違い探し'
+    = stylesheet_link_tag 'application', media: 'all', "data-turbolinks-track" => true
+    = javascript_include_tag 'application', "data-turbolinks-track" => true
+    = csrf_meta_tags
+
+    meta name="viewport" content="width=device-width,initial-scale=1"
+
+  body style="padding-top: 0px;"
+    .container-fluid
+      h3 間違い探し!
+      p
+        / onclick属性でのjavascript関数呼び出しが上手くいかない…
+        input#game_start type="button" value="開始！"
+        input#hint type="checkbox" name='hint' value="on"
+          | ヒント有り
+
+      span#target_string
+      span#penarty
+      p#score
+      #cells
