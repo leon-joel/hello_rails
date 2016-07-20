@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'slide_show/index'
+
   get 'misc/charactor'
 
   root 'blogs#index'

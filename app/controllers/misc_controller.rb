@@ -7,9 +7,6 @@ class MiscController < ApplicationController
   def find_mistake
   end
 
-  def slideshow
-  end
-
   private
   def set_title
     @title = action_name

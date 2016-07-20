@@ -1,0 +1,20 @@
+// Place all the styles related to the slide_show controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+// jQueryでつくるスライドショー http://dotinstall.com/lessons/slideshow_jquery
+.thumbnail {
+  width: 125px;
+  height: 83px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.current {
+  opacity: 1.0;
+}
+
+/* 隣接セレクタで thumbnail間に隙間を空ける */
+.thumbnail + .thumbnail {
+  margin-left: 4px;
+}
