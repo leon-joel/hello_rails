@@ -14,8 +14,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # routingのエラーをエラーハンドラーで処理させる
+  # root 'errors#routing_error'   # rootを捕まえたければこんな感じ
+  # *anythingは任意のURLパスを示す特殊な値 ※実践Rails4 p.122
+  get '*anything' => 'errors#routing_error'
 
-  match ':controller(/:action(/:id))', via: [ :get, :post, :patch ]
+  # 何でも捕まえるやつ…
+  # match ':controller(/:action(/:id))', via: [ :get, :post, :patch ]
 
 
   # The priority is based upon order of creation: first created -> highest priority.
