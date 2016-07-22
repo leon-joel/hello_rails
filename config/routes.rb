@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'table_sort/index'
+
   get 'slide_show/index'
 
   get 'misc/charactor'
