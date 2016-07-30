@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'html5_canvas/stroke'
+
   get 'two_column/index'
 
   get 'position_sample/index'
