@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'two_column/index'
+
+  get 'position_sample/index'
+
   get 'table_sort/index'
 
   get 'slide_show/index'

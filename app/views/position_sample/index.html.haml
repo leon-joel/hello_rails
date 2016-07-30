@@ -1,0 +1,26 @@
+!!!
+/ http://ja.learnlayout.com/position-example.html
+
+%html{:lang => "ja"}
+  %head
+    %meta{:charset => "UTF-8"}/
+    = stylesheet_link_tag 'position_sample', media: 'all', "data-turbolinks-track" => true
+    %title posisionを学ぶ
+  %body
+    %div.container.elem
+      %span.label
+        &lt;div class="container"&gt;
+
+      %nav.elem.elem-red
+        %span.label
+          &lt;nav&gt;
+        %ul
+          %li
+            %a{href: "position-example.html"}
+              ホーム
+          %li
+            %a{href: "position-example.html"}
+              タコスメニュー
+        %span.endlabel
+          &lt;/nav&gt;
+

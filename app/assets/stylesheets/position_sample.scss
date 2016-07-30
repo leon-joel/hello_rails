@@ -1,0 +1,39 @@
+// Place all the styles related to the position_sample controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container {
+  position: relative;
+
+  /*box-sizing: border-box;*/
+
+  color: #414142;
+}
+
+.elem {
+  border: solid #6AC5AC 3px;
+  position: relative;
+}
+
+.label {
+  top: 0;
+  left: 0;
+  padding: 0 3px 3px 0;
+}
+.endlabel {
+  right: 0;
+  bottom: 0;
+  padding: 3px 0 0 3px;
+}
+.label, .endlabel {
+  position: absolute;
+  background-color: #6AC5AC;
+  color: #414142;
+  line-height: 1em;
+}
+
+nav {
+  position: absolute;
+  left: 0px;
+  width: 200px;
+}

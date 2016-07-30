@@ -1,0 +1,171 @@
+// Place all the styles related to the two_column controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+html {
+  background-image: url("/bg_gray.png");
+  height:100%;    /* containerを下まで無限に延ばす。▲はそのための設定 */
+}
+
+body {
+  height:      100%;    /* ▲ */
+  font-family: Verdana, Arial, serif;
+  font-size: 14px;
+}
+
+body > #container {
+  height: auto;   /* ▲ */
+}
+
+#container {
+  min-height: 100%;   /* ▲ */
+  height:100%;        /* ▲ */
+  width: 600px;
+  margin: 0 auto;   /* 上下は0、左右は自動（均等に） */
+  padding: 0 10px;
+  background-color: white;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+#header {
+  margin-bottom: 15px;
+}
+
+#menu {
+  margin-bottom: 15px;
+  /* contentsとsidebarが回り込んでこないように */
+  overflow: hidden;
+}
+
+#main {
+  /* footerが入り込んでこないように overflow:hiddenを設定する */
+  /* ※これがないとmainの高さが0になってしまい、footerが浸食してくる */
+  overflow: hidden;
+  margin-bottom: 15px;    /* さらに footerとの間に隙間を空ける */
+}
+
+#contents {
+  float: left;
+  width: 400px;
+}
+
+#sidebar {
+  float: right;
+  width: 180px;
+}
+
+#footer {
+  font-size: 12px;
+  color: #cccccc;
+  text-align: center;
+  border-top: 1px solid #cccccc;
+  padding: 10px 0 20px;
+}
+
+#menu ul>li {
+  float: left;      /* 横並びになる */
+  width: 100px;
+  font-size: 13px;
+  text-align: center;
+  padding: 4px;
+  background: #cccccc;
+  margin-right: 10px;
+  border-radius: 4px; /* 角丸に */
+  text-shadow: 0 1px 0 #fff;
+}
+
+#menu ul>li:hover {
+  background: #dddddd;
+
+}
+#menu ul>li>a {
+  text-decoration: none;
+  display: block;   /* 親要素一杯まで広がる？？？（文字の外側もクリックできるようになる） */
+}
+
+h2, h3 {
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 16px;
+  border-left: 5px solid #cccccc;   /* 左端の縦棒見出し かっこいい */
+  padding: 3px 0 3px 10px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  border-bottom: 1px solid #cccccc; /* 見出し下の下線 これもかっこいい（というかそれっぽい）*/
+  padding: 3px 0;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 1em;   /* 下との間隔を1行分空ける */
+}
+
+ul.products {
+  margin-bottom: 15px;
+}
+
+ul.products>li {
+  overflow: hidden;   /* 次のliが回り込んでこないようにする */
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #cccccc;
+}
+ul.products>li:last-child {
+  /* 最後だけは区切り線を付けない */
+  border: none;
+}
+
+ul.products>li>img {
+  float: left;
+  width: 60px;      /* floatを付けたら必ずwidthを指定すること! */
+}
+
+ul.products>li>p {
+  margin-left: 70px;  /* imgの分左側を空けておく */
+  font-size: 13px;
+}
+
+div.article {
+  overflow: hidden;   /* 次のp, divが回り込んでこないようにする */
+}
+div.sample {
+  float: right;
+  width: 66px;      /* floatを付けたら必ずwidthを指定すること! */
+  margin: 10px 10px 0 10px;    /* badgeの飛び出し分のマージンを確保する ※これがないと飛び出したところが切れる */
+  position: relative; /* badgeの位置指定用 */
+
+}
+
+div.sample>p {
+  font-size: 12px;
+}
+
+div.sample>img {
+  /*margin: 15px 15px 0 0;*/
+  /*枠を付ける ※ここで指定したpaddingとborderの分（6px）をdiv.sampleのwidthに追加しておく*/
+  padding: 2px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+}
+
+.badge {
+  background: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 4px 3px;
+
+  /*位置指定*/
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+/*アイコン付きリスト*/
+ul.submenu>li {
+  background: url('/circle16.png') no-repeat;
+  padding: 0 0 5px 20px;
+}

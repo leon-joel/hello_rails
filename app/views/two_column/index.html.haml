@@ -1,0 +1,70 @@
+!!!
+/ http://dotinstall.com/lessons/website_html
+
+%html{:lang => "ja"}
+  %head
+    %meta{:charset => "UTF-8"}/
+    = stylesheet_link_tag 'http://yui.yahooapis.com/3.6.0/build/cssreset/cssreset-min.css'
+    -#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'two_column', media: 'all', "data-turbolinks-track" => true
+    %title 2カラムサイトを作ろう!
+  %body
+    #container
+      #header
+        %h1
+          %img{src:"/dummy.png", alt:"header", height:"100", width:"600"}
+
+      #menu
+        %ul
+          %li
+            %a{href:"#"} ホーム
+          %li
+            %a{href:"#"} 製品情報
+          %li
+            %a{href:"#"} 企業情報
+
+      #main
+        #contents
+          %h2 H2見出し
+          %p 本文です。resetcssでデフォルトのスタイリングをリセットして、1からスタイルを作り込んでいきます。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。
+          %p 本文です。resetcssでデフォルトのスタイリングをリセットして、1からスタイルを作り込んでいきます。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。
+          %ul.products
+            %li
+              %img{src:"/dummy.png", alt:"dummy", width:"60", height:"60"}
+              %p 画像付きリストのサンプル。画像付きリストのサンプル。画像付きリストのサンプル。画像付きリストのサンプル。画像付きリストのサンプル。
+            %li
+              %img{src:"/dummy.png", alt:"dummy", width:"60", height:"60"}
+              %p 画像付きリストのサンプル。画像付きリストのサンプル。画像付きリストのサンプル。画像付きリストのサンプル。画像付きリストのサンプル。
+            %li
+              %img{src:"/dummy.png", alt:"dummy", width:"60", height:"60"}
+              %p 画像付きリストのサンプル。画像付きリストのサンプル。画像付きリストのサンプル。画像付きリストのサンプル。画像付きリストのサンプル。
+
+          %h2 H2見出し
+          .article
+            .sample
+              %span.badge new!
+              %img{src:"/dummy.png", alt:"dummy", width:"60", height:"60"}
+              %p サンプル説明
+            %p 本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。
+
+          .article
+            .sample
+              %span.badge new!
+              %img{src:"/dummy.png", alt:"dummy", width:"60", height:"60"}
+              %p サンプル説明
+            %p 本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。本文です。こんにちは。
+
+        #sidebar
+          %h3 H3見出し
+          %p サイドコンテンツです。サイドコンテンツです。サイドコンテンツです。サイドコンテンツです。
+          %h3 H3見出し
+          %p サイドコンテンツです。サイドコンテンツです。サイドコンテンツです。サイドコンテンツです。
+          %ul.submenu
+            %li
+              %a{href:"#"} menu 1
+            %li
+              %a{href:"#"} menu 2
+            %li
+              %a{href:"#"} menu 3
+
+      #footer Copyright 2016, TZG
