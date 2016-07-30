@@ -39,6 +39,16 @@ module HelloRails
     # デフォルトのテンプレートエンジン
     config.generators.template_engine = :haml
 
+    # ジェネレーターで作成されるものを絞り込む ※実践RoR4 p.58
+    config.generators do |g|
+      g.helper false  # ヘルパー
+      g.assets false  # SCSS/CoffeeScriptファイル
+      g.test_framework :rspec   # デフォルトはMiniTest
+      g.controller_specs false
+      g.view_specs false
+    end
+
+
     # assetsへのアクセスログを抑止するgem "quiet_assets" を使う?
     # config.quiet_assets = false
 
