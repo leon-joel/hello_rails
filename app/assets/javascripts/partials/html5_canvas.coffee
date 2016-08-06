@@ -11,6 +11,7 @@ $(document).on 'ready page:load', ->
   draw_sample_rect()
   draw_sample_text()
   draw_sample_text_align()
+  draw_graph()
 
 draw_sample = ->
   # canvas の2Dコンテキストを取得
@@ -139,7 +140,85 @@ draw_sample_text_align = ->
   ctx.fillText(text, w/2, h/2)
 
 
+draw_graph = ->
+  canvas = $('#sample_graph').get(0)   # get(0)でjQueryオブジェクトからcanvasオブジェクトを取り出し
+  ctx = canvas.getContext('2d')   # 2Dコンテキストを取得
 
+  # 横軸となる年文字列を取得
+  head_cells = $('table#tbl>thead>tr>th')
+  years = []
 
+  # 配列内indexと要素(jQueryオブジェクトかな）を取得
+  for th_cell, idx in head_cells
+    years.push(th_cell.innerHTML) if 1 <= idx
 
+  # 値を取得
+  value_cells = $('table#tbl>tbody>tr>td')
 
+  max = 0
+  values = for value_cell in value_cells
+    v = value_cell.innerHTML
+    v = parseInt(v.replace(/[^\d]/g, ""))
+    max = v if max < v
+    v   # ループ内で最後に評価した値が配列に追加されforの戻り値となる
+
+  # グラフの原点となる座標を計算
+  baseX = parseInt(canvas.width * 0.1)
+  baseY = parseInt(canvas.height * 0.8)
+
+  # グラフの幅と高さ
+  gw = parseInt(canvas.width * 0.8)
+  gh = parseInt(canvas.height * 0.7)
+
+  # グラフの背景を描画
+  ctx.fillStyle = "#eeeeee"
+  ctx.fillRect(baseX, baseY - gh, gw, gh)
+
+  # 軸を描画
+  ctx.beginPath()
+  ctx.moveTo(baseX, baseY-gh)
+  ctx.lineTo(baseX, baseY)    # Y軸
+  ctx.lineTo(baseX+gw, baseY)
+  ctx.strokeStyle = "#666666"
+  ctx.stroke()
+
+  # 文字のフォント
+  ctx.font = "12px 'MS ゴシック'"
+
+  # 棒グラフの間隔
+  interval = gw / years.length
+  # 棒の幅
+  bar_w = interval * 0.7
+  # 最初の1本の棒のセンター位置X（原点Xからの相対位置）
+  start_x = interval / 2
+  # 棒の最大高 ※max値の高さ
+  bar_max_h = gh * 0.9
+
+  # グラフの描画
+  for head, idx in years
+    v = values[idx]
+    # 棒の高さ
+    bar_h = bar_max_h * (v / max)
+    # 棒のセンター位置X
+    x = baseX + start_x + (interval * idx)
+    # 棒の描画
+    ctx.fillStyle = "green"
+    ctx.fillRect(x - bar_w / 2, baseY - bar_h, bar_w, bar_h)
+
+    # ■テキストの描画
+    continue if ! ctx.fillText
+
+    # テキスト幅（許容最大値）
+    tw = interval * 0.9   # 棒間隔に対して0.9
+    # テキスト描画基準
+    ctx.textAlign = "center"
+
+    # X軸ラベル
+    ctx.textBaseline = "top"    # テキスト描画基準
+    ctx.fillStyle = "black"
+    ctx.fillText(head, x, baseY + 3, tw)
+
+    # 値描画
+    ctx.textBaseline = "ideographic"
+    ctx.fillStyle = "black"
+    ctx.fillText(v, x, baseY - bar_h - 3, tw)

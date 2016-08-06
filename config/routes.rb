@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'slide_show/index'
 
   get 'misc/charactor'
+  get 'misc/find_mistake'
 
   root 'blogs#index'
 

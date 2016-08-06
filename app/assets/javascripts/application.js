@@ -13,4 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+
+// common配下（再帰）のjs(CoffeeScript)を全てapplication.jsに取り込む。
+// ※javascript直下や commonディレクトリ以外のjs(CoffeeScript)は取り込まれないので、
+//   config/initializers/assets.rbに記載しておかないと、プリコンパイルの対象(?)にならず使えない。
+//= require_tree ./common
+// ※ここを ./なしで記述するとページ読み込み時に「require_tree argument must be a relative path」というエラーが発生する
