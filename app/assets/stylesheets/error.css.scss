@@ -1,13 +1,13 @@
 $boxShadowColor: rgba(50, 50, 50, 0.17);
 $borderSideColor: #999;
 
-h1 {
+h1.error {
   font-size: 100% * 1.5;
   color: #730E15;
   line-height: 1.5em;
 }
 
-body {
+body.error {
   background-color: #EFEFEF;
   color: #2E2F30;
   text-align: center;
@@ -22,7 +22,7 @@ body {
   box-shadow: 0 3px 8px $boxShadowColor;
 }
 
-div {
+div.error {
   .dialog {
     width: 95%;
     max-width: 33em;

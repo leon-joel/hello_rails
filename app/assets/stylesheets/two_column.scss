@@ -2,18 +2,18 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-html {
+html.two_column {
   background-image: url("/bg_gray.png");
   height:100%;    /* containerを下まで無限に延ばす。▲はそのための設定 */
 }
 
-body {
+body.two_column {
   height:      100%;    /* ▲ */
   font-family: Verdana, Arial, serif;
   font-size: 14px;
 }
 
-body > #container {
+body.two_column > #container {
   height: auto;   /* ▲ */
 }
 

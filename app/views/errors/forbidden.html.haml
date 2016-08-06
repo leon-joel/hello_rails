@@ -1,6 +1,6 @@
 .dialog
-  %div
-    %h1 403 Forbidden
+  %div.error
+    %h1.error 403 Forbidden
     %p
       - case @exception
       - when ApplicationController::IpAddressRejected

@@ -5,10 +5,10 @@
     = stylesheet_link_tag 'error', media: 'all', "data-turbolinks-track" => true
 
     %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
-  %body
+  %body.error
     .dialog
       %div
-        %h1 何か問題が発生しているようです
+        %h1.error 何か問題が発生しているようです
         %p すみません&lt;(_ _)&gt;
         %p ブラウザの設定でJavaScriptがOFFになっている場合は、ONにしてからやり直してください。
 

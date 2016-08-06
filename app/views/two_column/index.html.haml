@@ -1,14 +1,14 @@
 !!!
 / http://dotinstall.com/lessons/website_html
 
-%html{:lang => "ja"}
+%html.two_column{:lang => "ja"}
   %head
     %meta{:charset => "UTF-8"}/
     = stylesheet_link_tag 'http://yui.yahooapis.com/3.6.0/build/cssreset/cssreset-min.css'
     -#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = stylesheet_link_tag 'two_column', media: 'all', "data-turbolinks-track" => true
     %title 2カラムサイトを作ろう!
-  %body
+  %body.two_column
     #container
       #header
         %h1
