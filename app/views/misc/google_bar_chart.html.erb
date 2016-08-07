@@ -1,11 +1,3 @@
-<html>
-<head>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'https://www.gstatic.com/charts/loader.js', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>  <!--Load the AJAX API-->
-</head>
-
-<body>
 <%= link_to 'Top Page', root_path %>
 <br>
 
@@ -17,7 +9,5 @@
   </tr>
 </table>
 
+<%= javascript_include_tag 'https://www.gstatic.com/charts/loader.js' %>
 <%= javascript_include_tag 'partials/google_bar_chart' %>
-
-</body>
-</html>

@@ -34,6 +34,9 @@ drawChart = ->
 
 # Load the Visualization API and the corechart package.
 google.charts.load('current', {'packages':['corechart']})
+# 複数回load()を呼び出すと下のエラーになる。TurboLinksと一緒に使うのは難しいか？？？
+# Error: google.charts.load() cannot be called more than once with version 45 or earlier.
+# Google chartを使うページが多数あるのであれば、<head>に仕込んでおいても良いのかもしれないが…
 
 # Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChart)

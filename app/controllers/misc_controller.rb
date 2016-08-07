@@ -9,7 +9,7 @@ class MiscController < ApplicationController
   end
 
   def google_bar_chart
-    render :layout => false
+    # render :layout => false
   end
 
 
