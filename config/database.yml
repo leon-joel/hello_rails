@@ -31,7 +31,7 @@ test:
 #  pool: 5
 
 production:
- <<: *default
- adapter: postgresql
- encoding: unicode
- pool: 5
+#  database:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
