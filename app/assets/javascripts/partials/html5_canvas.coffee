@@ -4,15 +4,6 @@
 
 # HTML5 ガイドブック ～p.40  2.3 Canvas
 
-
-$(document).on 'ready page:load', ->
-  draw_sample()
-  draw_sample_color()
-  draw_sample_rect()
-  draw_sample_text()
-  draw_sample_text_align()
-  draw_graph()
-
 draw_sample = ->
   # canvas の2Dコンテキストを取得
   canvas = $('#sample')  # -> jQueryオブジェクトを返す https://api.jquery.com/id-selector/
@@ -222,3 +213,10 @@ draw_graph = ->
     ctx.textBaseline = "ideographic"
     ctx.fillStyle = "black"
     ctx.fillText(v, x, baseY - bar_h - 3, tw)
+
+draw_sample()
+draw_sample_color()
+draw_sample_rect()
+draw_sample_text()
+draw_sample_text_align()
+draw_graph()

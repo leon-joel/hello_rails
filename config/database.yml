@@ -30,8 +30,8 @@ test:
 #  password:
 #  pool: 5
 
+# heroku用の設定
 production:
-#  database:
   adapter: postgresql
   encoding: unicode
   pool: 5
