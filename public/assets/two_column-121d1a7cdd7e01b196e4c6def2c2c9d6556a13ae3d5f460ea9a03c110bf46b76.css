@@ -1,0 +1,216 @@
+@charset "UTF-8";
+/* line 5, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+html.two_column {
+  background-image: url("/bg_gray.png");
+  height: 100%;
+  /* containerを下まで無限に延ばす。▲はそのための設定 */
+}
+
+/* line 10, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+body.two_column {
+  height: 100%;
+  /* ▲ */
+  font-family: Verdana, Arial, serif;
+  font-size: 14px;
+}
+
+/* line 16, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+body.two_column > #container {
+  height: auto;
+  /* ▲ */
+}
+
+/* line 20, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+#container {
+  min-height: 100%;
+  /* ▲ */
+  height: 100%;
+  /* ▲ */
+  width: 600px;
+  margin: 0 auto;
+  /* 上下は0、左右は自動（均等に） */
+  padding: 0 10px;
+  background-color: white;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+/* line 30, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+#header {
+  margin-bottom: 15px;
+}
+
+/* line 34, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+#menu {
+  margin-bottom: 15px;
+  /* contentsとsidebarが回り込んでこないように */
+  overflow: hidden;
+}
+
+/* line 40, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+#main {
+  /* footerが入り込んでこないように overflow:hiddenを設定する */
+  /* ※これがないとmainの高さが0になってしまい、footerが浸食してくる */
+  overflow: hidden;
+  margin-bottom: 15px;
+  /* さらに footerとの間に隙間を空ける */
+}
+
+/* line 47, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+#contents {
+  float: left;
+  width: 400px;
+}
+
+/* line 52, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+#sidebar {
+  float: right;
+  width: 180px;
+}
+
+/* line 57, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+#footer {
+  font-size: 12px;
+  color: #cccccc;
+  text-align: center;
+  border-top: 1px solid #cccccc;
+  padding: 10px 0 20px;
+}
+
+/* line 65, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+#menu ul > li {
+  float: left;
+  /* 横並びになる */
+  width: 100px;
+  font-size: 13px;
+  text-align: center;
+  padding: 4px;
+  background: #cccccc;
+  margin-right: 10px;
+  border-radius: 4px;
+  /* 角丸に */
+  text-shadow: 0 1px 0 #fff;
+}
+
+/* line 77, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+#menu ul > li:hover {
+  background: #dddddd;
+}
+
+/* line 81, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+#menu ul > li > a {
+  text-decoration: none;
+  display: block;
+  /* 親要素一杯まで広がる？？？（文字の外側もクリックできるようになる） */
+}
+
+/* line 86, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+h2, h3 {
+  font-weight: bold;
+}
+
+/* line 90, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+h2 {
+  font-size: 16px;
+  border-left: 5px solid #cccccc;
+  /* 左端の縦棒見出し かっこいい */
+  padding: 3px 0 3px 10px;
+  margin-bottom: 10px;
+}
+
+/* line 97, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+h3 {
+  border-bottom: 1px solid #cccccc;
+  /* 見出し下の下線 これもかっこいい（というかそれっぽい）*/
+  padding: 3px 0;
+  margin-bottom: 10px;
+}
+
+/* line 103, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+p {
+  margin-bottom: 1em;
+  /* 下との間隔を1行分空ける */
+}
+
+/* line 107, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+ul.products {
+  margin-bottom: 15px;
+}
+
+/* line 111, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+ul.products > li {
+  overflow: hidden;
+  /* 次のliが回り込んでこないようにする */
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #cccccc;
+}
+
+/* line 117, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+ul.products > li:last-child {
+  /* 最後だけは区切り線を付けない */
+  border: none;
+}
+
+/* line 122, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+ul.products > li > img {
+  float: left;
+  width: 60px;
+  /* floatを付けたら必ずwidthを指定すること! */
+}
+
+/* line 127, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+ul.products > li > p {
+  margin-left: 70px;
+  /* imgの分左側を空けておく */
+  font-size: 13px;
+}
+
+/* line 132, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+div.article {
+  overflow: hidden;
+  /* 次のp, divが回り込んでこないようにする */
+}
+
+/* line 135, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+div.sample {
+  float: right;
+  width: 66px;
+  /* floatを付けたら必ずwidthを指定すること! */
+  margin: 10px 10px 0 10px;
+  /* badgeの飛び出し分のマージンを確保する ※これがないと飛び出したところが切れる */
+  position: relative;
+  /* badgeの位置指定用 */
+}
+
+/* line 143, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+div.sample > p {
+  font-size: 12px;
+}
+
+/* line 147, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+div.sample > img {
+  /*margin: 15px 15px 0 0;*/
+  /*枠を付ける ※ここで指定したpaddingとborderの分（6px）をdiv.sampleのwidthに追加しておく*/
+  padding: 2px;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+}
+
+/* line 155, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+.badge {
+  background: red;
+  color: white;
+  font-size: 10px;
+  padding: 2px 4px 3px;
+  /*位置指定*/
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+/*アイコン付きリスト*/
+/* line 168, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/two_column.scss */
+ul.submenu > li {
+  background: url("/circle16.png") no-repeat;
+  padding: 0 0 5px 20px;
+}

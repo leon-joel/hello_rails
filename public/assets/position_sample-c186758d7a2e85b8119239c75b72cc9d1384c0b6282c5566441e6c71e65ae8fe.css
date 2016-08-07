@@ -1,0 +1,41 @@
+/* line 5, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/position_sample.scss */
+.container {
+  position: relative;
+  /*box-sizing: border-box;*/
+  color: #414142;
+}
+
+/* line 13, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/position_sample.scss */
+.elem {
+  border: solid #6AC5AC 3px;
+  position: relative;
+}
+
+/* line 18, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/position_sample.scss */
+.label {
+  top: 0;
+  left: 0;
+  padding: 0 3px 3px 0;
+}
+
+/* line 23, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/position_sample.scss */
+.endlabel {
+  right: 0;
+  bottom: 0;
+  padding: 3px 0 0 3px;
+}
+
+/* line 28, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/position_sample.scss */
+.label, .endlabel {
+  position: absolute;
+  background-color: #6AC5AC;
+  color: #414142;
+  line-height: 1em;
+}
+
+/* line 35, C:/Users/nakaue/Documents/GitHub/hello_rails/app/assets/stylesheets/position_sample.scss */
+nav {
+  position: absolute;
+  left: 0px;
+  width: 200px;
+}
