@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get 'misc/charactor'
   get 'misc/find_mistake'
+  get 'misc/google_bar_chart'
 
   root 'blogs#index'
 

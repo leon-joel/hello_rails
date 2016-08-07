@@ -8,6 +8,11 @@ class MiscController < ApplicationController
     render :layout => false
   end
 
+  def google_bar_chart
+    render :layout => false
+  end
+
+
   private
   def set_title
     @title = action_name
