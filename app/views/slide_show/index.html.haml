@@ -1,3 +1,4 @@
+
 #thumbnails
 #main
 #nav
@@ -5,3 +6,15 @@
   %button#next 次へ »
   %button#play 再生
   %button#stop 停止
+
+-# NG: topをリロード後リンククリックで読み込まれない
+-#= javascript_include_tag 'partials/slide_show', 'data-turbolinks-eval': false
+
+-# NG: topをリロード後リンククリックで読み込まれるが、実行されない?（ハンドラーの登録は行われている）
+-#     そして、戻る＆再度リンククリックで多重に実行される！
+-# OK: jsから $(document).on 'ready page:load', -> を外して、読み込んだときに実行されるようにした。
+-#     これなら、<head>はTurboLinksが効き、かつ<body>のjs（↓）はちゃんと実行される。
+= javascript_include_tag 'partials/slide_show'
+
+
+= link_to 'Top Page', root_path
