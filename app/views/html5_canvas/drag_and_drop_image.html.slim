@@ -21,103 +21,93 @@ html
         }
       }
 
-    javascript:
-      (function () {
+    coffee:
+      # ドロップ領域のdiv要素
+      dp = null
+      # FileReaderインタフェースオブジェクト
+      reader = null
 
-        // ドロップ領域のdiv要素
-        var dp = null;
-        // FileReaderインタフェースオブジェクト
-        var reader = null;
+      ### -------------------------------------------------------------------
+        ページがロードされたときの処理
+      ###
+      window.addEventListener("load",
+        (->
+          # ドロップ領域のdiv要素
+          dp = document.getElementById("dp")
+          # dragoverイベントのイベントリスナーをセット ※CoffeeScriptの関数は()で囲む。
+          dp.addEventListener("dragover",
+                  ((evt) -> evt.preventDefault()), false)   # ※カンマを行頭に書くとエラーになる
+          # dropイベントのイベントリスナーをセット
+          dp.addEventListener("drop",
+                  ((evt)->
+                    evt.preventDefault()
+                    file_droped(evt)), false)), false)
 
-        /* -------------------------------------------------------------------
-         * ページがロードされたときの処理
-         * ----------------------------------------------------------------- */
-        window.addEventListener("load", function() {
-          // ドロップ領域のdiv要素
-          dp = document.getElementById("dp");
-          // dragoverイベントのイベントリスナーをセット
-          dp.addEventListener("dragover", function(evt) {
-            evt.preventDefault();
-          }, false);
-          // dropイベントのイベントリスナーをセット
-          dp.addEventListener("drop", function(evt) {
-            evt.preventDefault();
-            file_droped(evt);
-          }, false);
-        }, false);
+      ### -------------------------------------------------------------------
+        ファイルがドロップされたときの処理
+      ###
+      file_droped = (evt) ->
+        # 表示領域をクリア
+        while dp.firstChild
+          dp.removeChild(dp.firstChild)
 
-        /* -------------------------------------------------------------------
-         * ファイルがドロップされたときの処理
-         * ----------------------------------------------------------------- */
-        function file_droped(evt) {
-          // 表示領域をクリア
-          while( dp.firstChild ) {
-            dp.removeChild(dp.firstChild);
-          }
-          // ドロップされたファイルのFileインタフェースオブジェクト
-          var file = evt.dataTransfer.files[0];
-          // FileReaderインタフェースオブジェクト
-          reader = new FileReader();
-          // 画像ファイルでなければエラー
-          if( ! /^image/.test(file.type) ) {
-            alert("画像ファイルをドロップして下さい。");
-          }
-          // ドロップ画像をロード
-          reader.readAsDataURL(file);
-          reader.onload = prepare_image;
-        }
+        # ドロップされたファイルのFileインタフェースオブジェクト
+        file = evt.dataTransfer.files[0]
+        # FileReaderインタフェースオブジェクト
+        reader = new FileReader()
+        # 画像ファイルでなければエラー
+        if ! /^image/.test(file.type)
+          alert("画像ファイルをドロップして下さい。")
 
-        /* -------------------------------------------------------------------
-         * ドロップされたファイルを表示
-         * ----------------------------------------------------------------- */
-        function prepare_image(evt) {
-          // img要素を生成して、ドロップされた画像を表示
-          var image = document.createElement("img");
-          image.setAttribute("src", reader.result);
-          dp.appendChild(image);
-          // img要素がドキュメントにロードされたら処理を続行
-          image.onload = function() {
-            // 画像のサイズを取得
-            var w = parseInt(image.width);
-            var h = parseInt(image.height);
-            // canvas要素を生成して、画像を組み込む
-            var canvas = document.createElement("canvas");
-            canvas.width = w;
-            canvas.height = h;
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(image, 0, 0);
-            // canvasのピクセルデータを取得
-            var imagedata = ctx.getImageData(0, 0, w, h);
-            // グレースケールに変換
-            convert_image_to_gray_scale(imagedata.data);
-            // canvasのピクセルデータを置き換える
-            ctx.putImageData(imagedata, 0, 0);
-            // canvasを表示
-            dp.appendChild(canvas);
-          }
-        }
+        # ドロップ画像をロード
+        reader.readAsDataURL(file)
+        reader.onload = prepare_image
 
-        /* -------------------------------------------------------------------
-         * グレースケールに変換
-         * ----------------------------------------------------------------- */
-        function convert_image_to_gray_scale(data) {
-          var len = data.length;
-          var pixels = len / 4;
-          for( var i=0; i<pixels; i++ ) {
-            // R, G, Bそれぞれのコンポーネント値を取り出す
-            var r = data[ i*4 ];
-            var g = data[ i*4 + 1 ];
-            var b = data[ i*4 + 2 ];
-            // グレースケールに変換
-            var g = parseInt( (11*r + 16*g + 5*b) / 32 );
-            // 変換したピクセルデータをセット
-            data[ i*4 ] = g;
-            data[ i*4 + 1 ] = g;
-            data[ i*4 + 2 ] = g;
-          }
-        }
+      ### -------------------------------------------------------------------
+        ドロップされたファイルを表示
+      ###
+      prepare_image = (evt) ->
+        # img要素を生成して、ドロップされた画像を表示
+        image = document.createElement("img")
+        image.setAttribute("src", reader.result)
+        dp.appendChild(image)
+        # img要素がドキュメントにロードされたら処理を続行
+        image.onload = ->
+          # 画像のサイズを取得
+          w = parseInt(image.width)
+          h = parseInt(image.height)
+          # canvas要素を生成して、画像を組み込む
+          canvas = document.createElement("canvas")
+          canvas.width = w
+          canvas.height = h
+          ctx = canvas.getContext("2d")
+          ctx.drawImage(image, 0, 0)
+          # canvasのピクセルデータを取得
+          imagedata = ctx.getImageData(0, 0, w, h)
+          # グレースケールに変換
+          convert_image_to_gray_scale(imagedata.data)
+          # canvasのピクセルデータを置き換える
+          ctx.putImageData(imagedata, 0, 0)
+          # canvasを表示
+          dp.appendChild(canvas)
 
-      })();
+      ### -------------------------------------------------------------------
+        グレースケールに変換
+      ###
+      convert_image_to_gray_scale = (data)->
+        len = data.length
+        pixels = len / 4
+        for i in [0..pixels-1]
+          # R, G, Bそれぞれのコンポーネント値を取り出す
+          r = data[ i*4 ]
+          g = data[ i*4 + 1 ]
+          b = data[ i*4 + 2 ]
+          # グレースケールに変換
+          g = parseInt( (11*r + 16*g + 5*b) / 32 )
+          # 変換したピクセルデータをセット
+          data[ i*4 ] = g
+          data[ i*4 + 1 ] = g
+          data[ i*4 + 2 ] = g
 
   body
     = link_to 'Top Page', root_path
