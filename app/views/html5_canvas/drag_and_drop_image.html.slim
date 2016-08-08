@@ -1,3 +1,4 @@
+/ HTML5 ガイドブック 2.7 Canvas - ピクセル操作 p.61
 doctype html
 html
   head
@@ -21,38 +22,43 @@ html
         }
       }
 
+    script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
     coffee:
       # ドロップ領域のdiv要素
       dp = null
       # FileReaderインタフェースオブジェクト
       reader = null
 
+      # イベントをキャンセルするハンドラです.
+      cancelEvent = (evt)->
+        evt.preventDefault()
+        evt.stopPropagation()
+        return false
+
       ### -------------------------------------------------------------------
         ページがロードされたときの処理
       ###
-      window.addEventListener("load",
-        (->
-          # ドロップ領域のdiv要素
-          dp = document.getElementById("dp")
-          # dragoverイベントのイベントリスナーをセット ※CoffeeScriptの関数は()で囲む。
-          dp.addEventListener("dragover",
-                  ((evt) -> evt.preventDefault()), false)   # ※カンマを行頭に書くとエラーになる
-          # dropイベントのイベントリスナーをセット
-          dp.addEventListener("drop",
-                  ((evt)->
-                    evt.preventDefault()
-                    file_droped(evt)), false)), false)
+      $(window).on 'load', ->
+        # ドロップ領域のdiv要素
+        dp = $("#dp")
+        # dragenter/dragoverイベントのイベントリスナーをセット ※CoffeeScriptの関数は()で囲む。
+        dp.on "dragenter", cancelEvent
+        dp.on "dragover", cancelEvent
+
+        # dropイベントのイベントリスナーをセット
+        dp.on "drop", (evt) ->
+          evt.preventDefault()
+          file_droped(evt)
 
       ### -------------------------------------------------------------------
         ファイルがドロップされたときの処理
       ###
       file_droped = (evt) ->
         # 表示領域をクリア
-        while dp.firstChild
-          dp.removeChild(dp.firstChild)
+        dp.empty()    # jsならwhileループでぐるぐる回しのところ、jQueryならempty()一発
 
         # ドロップされたファイルのFileインタフェースオブジェクト
-        file = evt.dataTransfer.files[0]
+        file = evt.originalEvent.dataTransfer.files[0]    #jQuery.EventオブジェクトからoriginalEventで生eventに取り出し
         # FileReaderインタフェースオブジェクト
         reader = new FileReader()
         # 画像ファイルでなければエラー
@@ -68,20 +74,20 @@ html
       ###
       prepare_image = (evt) ->
         # img要素を生成して、ドロップされた画像を表示
-        image = document.createElement("img")
-        image.setAttribute("src", reader.result)
-        dp.appendChild(image)
+        image = $("<img>", {src: reader.result});   # jsなら: document.createElement("img")
+        #image.setAttribute("src", reader.result)
+        dp.append(image)    # js: appendChild
         # img要素がドキュメントにロードされたら処理を続行
-        image.onload = ->
+        image.load ->
           # 画像のサイズを取得
-          w = parseInt(image.width)
-          h = parseInt(image.height)
+          w = parseInt(this.width)    # imageではなく、
+          h = parseInt(this.height)
           # canvas要素を生成して、画像を組み込む
           canvas = document.createElement("canvas")
           canvas.width = w
           canvas.height = h
           ctx = canvas.getContext("2d")
-          ctx.drawImage(image, 0, 0)
+          ctx.drawImage(this, 0, 0)
           # canvasのピクセルデータを取得
           imagedata = ctx.getImageData(0, 0, w, h)
           # グレースケールに変換
@@ -89,7 +95,7 @@ html
           # canvasのピクセルデータを置き換える
           ctx.putImageData(imagedata, 0, 0)
           # canvasを表示
-          dp.appendChild(canvas)
+          dp.append(canvas)
 
       ### -------------------------------------------------------------------
         グレースケールに変換
