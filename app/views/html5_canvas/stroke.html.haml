@@ -12,6 +12,14 @@
 %br
 %canvas.html5_sample#sample_graph{ width:"400", height:"300" }
 
+-#Table and divs that hold the pie charts
+%table.columns
+  %tr
+    %td
+      #piechart_div{ style: "border: 1px solid #ccc" }
+    %td
+      #barchart_div{ style: "border: 1px solid #ccc" }
+
 %table#tbl
   %caption 会員数の推移
   %thead
@@ -45,4 +53,5 @@
       %td 1,318
       %td 1,275
 
+= javascript_include_tag 'https://www.gstatic.com/charts/loader.js'
 = javascript_include_tag 'partials/html5_canvas'

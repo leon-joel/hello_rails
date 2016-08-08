@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+
 # HTML5 ガイドブック ～p.40  2.3 Canvas
 
 draw_sample = ->
@@ -130,11 +131,8 @@ draw_sample_text_align = ->
   ctx.fillStyle = "green"
   ctx.fillText(text, w/2, h/2)
 
-
-draw_graph = ->
-  canvas = $('#sample_graph').get(0)   # get(0)でjQueryオブジェクトからcanvasオブジェクトを取り出し
-  ctx = canvas.getContext('2d')   # 2Dコンテキストを取得
-
+# データtableから値を取り出す
+extract_values = ->
   # 横軸となる年文字列を取得
   head_cells = $('table#tbl>thead>tr>th')
   years = []
@@ -146,12 +144,19 @@ draw_graph = ->
   # 値を取得
   value_cells = $('table#tbl>tbody>tr>td')
 
-  max = 0
+  max_value = 0
   values = for value_cell in value_cells
     v = value_cell.innerHTML
     v = parseInt(v.replace(/[^\d]/g, ""))
-    max = v if max < v
+    max_value = v if max_value < v
     v   # ループ内で最後に評価した値が配列に追加されforの戻り値となる
+
+  return [ years, values, max_value ]
+
+# canvasに棒グラフを描画
+draw_graph = (years, values, max_value) ->
+  canvas = $('#sample_graph').get(0)   # get(0)でjQueryオブジェクトからcanvasオブジェクトを取り出し
+  ctx = canvas.getContext('2d')   # 2Dコンテキストを取得
 
   # グラフの原点となる座標を計算
   baseX = parseInt(canvas.width * 0.1)
@@ -182,14 +187,14 @@ draw_graph = ->
   bar_w = interval * 0.7
   # 最初の1本の棒のセンター位置X（原点Xからの相対位置）
   start_x = interval / 2
-  # 棒の最大高 ※max値の高さ
+  # 棒の最大高 ※max_value値の高さ
   bar_max_h = gh * 0.9
 
   # グラフの描画
   for head, idx in years
     v = values[idx]
     # 棒の高さ
-    bar_h = bar_max_h * (v / max)
+    bar_h = bar_max_h * (v / max_value)
     # 棒のセンター位置X
     x = baseX + start_x + (interval * idx)
     # 棒の描画
@@ -219,4 +224,57 @@ draw_sample_color()
 draw_sample_rect()
 draw_sample_text()
 draw_sample_text_align()
-draw_graph()
+
+# データtableから値を取り出す
+[ years, values, max_value ] = extract_values()
+
+draw_graph(years, values, max_value)
+
+
+
+
+# CoffeeScriptの場合、(JSと違い）呼び出されるメソッドを先に定義しないと正しく動作しない
+
+# コールバックメソッドに引数を追加すると動作しなくなる。new google.visualization が undefined というようなエラーが出る。
+# Callback that creates and populates a data table,
+# instantiates the pie chart, passes in the data and
+# draws it.
+draw_chart = ->
+# Create the data table.
+  data = new google.visualization.DataTable()
+  data.addColumn('string', 'Year')
+  data.addColumn('number', 'Members')
+
+  # 引数で years, valuesを渡したかったがどうしても出来なかったので、仕方なく再度取得する
+  # ※描画方法がいくつも提供されているようなので、他の方法なら出来るのかも。
+  # https://developers.google.com/chart/interactive/docs/drawing_charts
+  [ years, values, max_value ] = extract_values()
+
+  for head, idx in years
+    data.addRow([ head, values[idx]])
+
+  # Set chart options
+  options = {'title':'Members', 'width':400, 'height':300 }
+
+  # Instantiate and draw our chart, passing in some options.
+  chart = new google.visualization.PieChart($("#piechart_div").get(0))
+  chart.draw(data, options)
+
+  # Set Bar chart options
+  barchart_options = {
+    title:'Barchart: Members',
+    width:400,
+    height:300,
+    legend: 'none'}
+  barchart = new google.visualization.BarChart($('#barchart_div').get(0))
+  barchart.draw(data, barchart_options)
+
+# Load the Visualization API and the corechart package.
+google.charts.load('current', {'packages':['corechart']})
+# 複数回load()を呼び出すと下のエラーになる。TurboLinksと一緒に使うのは難しいか？？？
+# Error: google.charts.load() cannot be called more than once with version 45 or earlier.
+# Google chartを使うページが多数あるのであれば、<head>に仕込んでおいても良いのかもしれないが…
+
+# Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(draw_chart)
+

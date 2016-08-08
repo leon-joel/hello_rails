@@ -1,0 +1,14 @@
+= link_to 'Top Page', root_path
+br
+
+
+/ Table and divs that hold the pie charts
+table.columns
+  tr
+    td
+      #piechart_div style="border: 1px solid #ccc"
+    td
+      #barchart_div style="border: 1px solid #ccc"
+
+= javascript_include_tag 'https://www.gstatic.com/charts/loader.js'
+= javascript_include_tag 'partials/google_bar_chart'
