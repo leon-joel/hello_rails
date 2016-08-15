@@ -83,9 +83,9 @@
       svg.attr width:600, height:800                  #   CoffeeScriptならこんな感じに書いた方がそれっぽい
 
       yamanote = [
-        { name:"五反田駅",      latitude:35.626446,        longitude:139.723444      },
         { name:"品川駅",        latitude:35.630152,        longitude:139.74044      },
         { name:"大崎駅",        latitude:35.6197,          longitude:139.728553      },
+        { name:"五反田駅",      latitude:35.626446,        longitude:139.723444      },
         { name:"目黒駅",        latitude:35.633998,        longitude:139.715828      },
         { name:"恵比寿駅",      latitude:35.64669,         longitude:139.710106      },
         { name:"渋谷駅",        latitude:35.658517,        longitude:139.701334      },
@@ -121,13 +121,23 @@
         min_lon = Math.min(min_lon, pos.longitude) # 経度
         max_lat = Math.max(max_lat, pos.latitude)
         max_lon = Math.max(max_lon, pos.longitude)
+
+      polygon = $(document.createElementNS(SVG,'polygon'))
+      polygon.attr stroke:"skyblue", fill:"none"
+      svg.append(polygon)   # circleの下に描画して欲しいのでcircleよりも先にappendする ※circleよりも後にappendするとcircleの上に描画される
+
       yamanote.forEach (pos) ->
         circle = $(document.createElementNS(SVG,'circle'))  # jQuery適用 ※下も
-        circle.attr                                   # ※連想配列を改行区切りで書く。行末にカンマを付けるとエラーになる。
-          cx: 50 + (pos.longitude - min_lon) * 5000   # 左側のpadding + (経度 - 経度min) * 5000
-          cy: 50 + (max_lat - pos.latitude) * 5000    # 上側のpadding + (緯度max - 緯度) * 5000
-          r: 10                                       # マーカーの半径
+        x = 50 + (pos.longitude - min_lon) * 5000   # 左側のpadding + (経度 - 経度min) * 5000
+        y = 50 + (max_lat - pos.latitude) * 5000    # 上側のpadding + (緯度max - 緯度) * 5000
+        circle.attr                                 # ※連想配列を改行区切りで書く。行末にカンマを付けるとエラーになる。
+          cx: x
+          cy: y
+          r: 10                                     # マーカーの半径
           fill: "lightpink"
         svg.append(circle)        # jQuery適用
 
+        p = $(svg[0].createSVGPoint())          # ※jQueryを使っているが、[0]（＝get(0)）だらけで逆にめんどくさいことになってる( ﾟдﾟ )
+        p.attr x: x, y: y
+        polygon[0].points.appendItem(p[0])
       $('#svg_base').append(svg)  # jQuery適用
