@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'html5_svg/yamanote'
+
   get 'html5_canvas/stroke'
   get 'html5_canvas/drag_and_drop_image'
 

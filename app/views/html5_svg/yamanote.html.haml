@@ -1,0 +1,63 @@
+!!!
+%html
+  %head
+    %title 山手線マップ
+    -#= stylesheet_link_tag 'error', media: 'all', "data-turbolinks-track" => true
+    -#%meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+  %body
+    #svg_base{ style: "border: solid 1px" }
+    :javascript
+      var root = document.getElementById('svg_base');
+      var SVG = 'http://www.w3.org/2000/svg';
+      // svg要素を作る
+      var svg = document.createElementNS(SVG,'svg');
+      svg.setAttribute('width', '600');
+      svg.setAttribute('height', '800');
+
+      var yamanote = [
+        { name:"五反田駅",      latitude:35.626446,        longitude:139.723444      },
+        { name:"品川駅",        latitude:35.630152,        longitude:139.74044      },
+        { name:"大崎駅",        latitude:35.6197,          longitude:139.728553      },
+        { name:"目黒駅",        latitude:35.633998,        longitude:139.715828      },
+        { name:"恵比寿駅",      latitude:35.64669,         longitude:139.710106      },
+        { name:"渋谷駅",        latitude:35.658517,        longitude:139.701334      },
+        { name:"原宿駅",        latitude:35.670168,        longitude:139.702687      },
+        { name:"代々木駅",      latitude:35.683061,        longitude:139.702042      },
+        { name:"新宿駅",        latitude:35.690921,        longitude:139.700258      },
+        { name:"新大久保駅",    latitude:35.701306,        longitude:139.700044      },
+        { name:"高田馬場駅",    latitude:35.712285,        longitude:139.703782      },
+        { name:"目白駅",        latitude:35.721204,        longitude:139.706587      },
+        { name:"池袋駅",        latitude:35.728926,        longitude:139.71038      },
+        { name:"大塚駅",        latitude:35.731401,        longitude:139.728662      },
+        { name:"巣鴨駅",        latitude:35.733492,        longitude:139.739345      },
+        { name:"駒込駅",        latitude:35.736489,        longitude:139.746875      },
+        { name:"田端駅",        latitude:35.738062,        longitude:139.76086      },
+        { name:"西日暮里駅",    latitude:35.733738,        longitude:139.768115      },
+        { name:"日暮里駅",      latitude:35.727772,        longitude:139.770987      },
+        { name:"鶯谷駅",        latitude:35.720495,        longitude:139.778837      },
+        { name:"上野駅",        latitude:35.713768,        longitude:139.777254      },
+        { name:"御徒町駅",      latitude:35.707438,        longitude:139.774632      },
+        { name:"秋葉原駅",      latitude:35.698683,        longitude:139.774219      },
+        { name:"神田駅",        latitude:35.69169,         longitude:139.770883      },
+        { name:"東京駅",        latitude:35.681382,        longitude:139.766084      },
+        { name:"有楽町駅",      latitude:35.675069,        longitude:139.763328      },
+        { name:"新橋駅",        latitude:35.665498,        longitude:139.75964      },
+        { name:"浜松町駅",      latitude:35.655646,        longitude:139.756749      },
+        { name:"田町駅",        latitude:35.645736,        longitude:139.747575      }];
+      var min_lat = 1000, min_lon = 1000, max_lat = 0, max_lon = 0;
+      yamanote.forEach(function(pos){
+        min_lat = Math.min(min_lat, pos.latitude);  // 緯度
+        min_lon = Math.min(min_lon, pos.longitude); // 経度
+        max_lat = Math.max(max_lat, pos.latitude);
+        max_lon = Math.max(max_lon, pos.longitude);
+      });
+      yamanote.forEach(function(pos){
+        var circle = document.createElementNS(SVG,'circle');
+        circle.setAttribute('cx', 50 + (pos.longitude - min_lon) * 5000);   // 左のpadding + (経度 - 経度min) * 5000
+        // circle.setAttribute('cy', 50 + (pos.latitude  - max_lat) * -5000);  // 上のpadding + (緯度 - 緯度max) * -5000
+        circle.setAttribute('cy', 50 + (max_lat - pos.latitude) * 5000);  // 上のpadding + (緯度max - 緯度) * 5000  // 上の式が分かりづらいので書き換え
+        circle.setAttribute('r', '10');   // マーカーの半径
+        circle.setAttribute("fill", "lightpink");
+        svg.appendChild(circle);
+      });
+      root.appendChild(svg);  // div要素に追加
