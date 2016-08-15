@@ -72,12 +72,15 @@
     -#  root.appendChild(svg);  // div要素に追加
     :coffee
       # jQueryを使ってみたが、SVGに関してはjQueryの出番は殆ど無いようだ。（最終行のみ）
-      # http://kamegu.hateblo.jp/entry/svg/with-jquery
+      #   http://kamegu.hateblo.jp/entry/svg/with-jquery
+      # もっとjQueryを適用できるよ(^^)/
+      #   http://dot-town-lab.com/laboratory/item/68
       SVG = 'http://www.w3.org/2000/svg'
       # svg要素を作る
-      svg = document.createElementNS(SVG,'svg')
-      svg.setAttribute('width', '600')
-      svg.setAttribute('height', '800')
+      # svg = document.createElementNS(SVG,'svg')
+      svg = $(document.createElementNS(SVG, 'svg'))   # jQuery適用
+      # svg.attr( {width:600, height:800} )           # ※連想配列をJavaScriptっぽく書いても良いが
+      svg.attr width:600, height:800                  #   CoffeeScriptならこんな感じに書いた方がそれっぽい
 
       yamanote = [
         { name:"五反田駅",      latitude:35.626446,        longitude:139.723444      },
@@ -113,19 +116,18 @@
       min_lon = 1000
       max_lat = 0
       max_lon = 0
-      yamanote.forEach((pos) ->
+      yamanote.forEach (pos) ->
         min_lat = Math.min(min_lat, pos.latitude)  # 緯度
         min_lon = Math.min(min_lon, pos.longitude) # 経度
         max_lat = Math.max(max_lat, pos.latitude)
         max_lon = Math.max(max_lon, pos.longitude)
-      )
-      yamanote.forEach((pos) ->
-        circle = document.createElementNS(SVG,'circle')
-        circle.setAttribute('cx', 50 + (pos.longitude - min_lon) * 5000)   # 左のpadding + (経度 - 経度min) * 5000
-        # circle.setAttribute('cy', 50 + (pos.latitude  - max_lat) * -5000)  # 上のpadding + (緯度 - 緯度max) * -5000
-        circle.setAttribute('cy', 50 + (max_lat - pos.latitude) * 5000)  # 上のpadding + (緯度max - 緯度) * 5000  # 上の式が分かりづらいので書き換え
-        circle.setAttribute('r', '10')   # マーカーの半径
-        circle.setAttribute("fill", "lightpink")
-        svg.appendChild(circle)
-      )
-      $('#svg_base').append(svg)  # div要素に追加
+      yamanote.forEach (pos) ->
+        circle = $(document.createElementNS(SVG,'circle'))  # jQuery適用 ※下も
+        circle.attr                                   # ※連想配列を改行区切りで書く。行末にカンマを付けるとエラーになる。
+          cx: 50 + (pos.longitude - min_lon) * 5000   # 左側のpadding + (経度 - 経度min) * 5000
+          cy: 50 + (max_lat - pos.latitude) * 5000    # 上側のpadding + (緯度max - 緯度) * 5000
+          r: 10                                       # マーカーの半径
+          fill: "lightpink"
+        svg.append(circle)        # jQuery適用
+
+      $('#svg_base').append(svg)  # jQuery適用
