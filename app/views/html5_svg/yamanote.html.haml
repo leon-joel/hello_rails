@@ -4,6 +4,15 @@
     %title 山手線マップ
     -#= stylesheet_link_tag 'error', media: 'all', "data-turbolinks-track" => true
     -#%meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+
+    -#%script{ src: "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" }
+
+    -# ※slimはAjax用関数を取り除いた版
+    %script{ src: "https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.slim.min.js" }
+
+    -#%script{ src: "https://code.jquery.com/jquery-3.1.0.slim.min.js",
+    -#         integrity: "sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8=",
+    -#         crossorigin: "anonymous" }
   %body
     #svg_base{ style: "border: solid 1px" }
     -#:javascript
@@ -62,7 +71,8 @@
     -#  });
     -#  root.appendChild(svg);  // div要素に追加
     :coffee
-      root = document.getElementById('svg_base')
+      # jQueryを使ってみたが、SVGに関してはjQueryの出番は殆ど無いようだ。（最終行のみ）
+      # http://kamegu.hateblo.jp/entry/svg/with-jquery
       SVG = 'http://www.w3.org/2000/svg'
       # svg要素を作る
       svg = document.createElementNS(SVG,'svg')
@@ -118,4 +128,4 @@
         circle.setAttribute("fill", "lightpink")
         svg.appendChild(circle)
       )
-      root.appendChild(svg)  # div要素に追加
+      $('#svg_base').append(svg)  # div要素に追加
