@@ -127,17 +127,32 @@
       svg.append(polygon)   # circleの下に描画して欲しいのでcircleよりも先にappendする ※circleよりも後にappendするとcircleの上に描画される
 
       yamanote.forEach (pos) ->
-        circle = $(document.createElementNS(SVG,'circle'))  # jQuery適用 ※下も
         x = 50 + (pos.longitude - min_lon) * 5000   # 左側のpadding + (経度 - 経度min) * 5000
         y = 50 + (max_lat - pos.latitude) * 5000    # 上側のpadding + (緯度max - 緯度) * 5000
+        # circleとtextを包含するg要素
+        g = $(document.createElementNS(SVG, 'g'))
+        g.attr transform: 'translate(' + x + ', ' + y + ')'
+
+        circle = $(document.createElementNS(SVG,'circle'))
         circle.attr                                 # ※連想配列を改行区切りで書く。行末にカンマを付けるとエラーになる。
-          cx: x
-          cy: y
+          cx: 0                                     # 親の g 要素に対する相対位置
+          cy: 0                                     # 同上
           r: 10                                     # マーカーの半径
           fill: "lightpink"
-        svg.append(circle)        # jQuery適用
+        g.append(circle)
 
         p = $(svg[0].createSVGPoint())          # ※jQueryを使っているが、[0]（＝get(0)）だらけで逆にめんどくさいことになってる( ﾟдﾟ )
         p.attr x: x, y: y
         polygon[0].points.appendItem(p[0])
+
+        label = $(document.createElementNS(SVG, 'text'))
+        label.attr
+          x: 12
+          y: 12
+          fill: "#333"
+        label[0].textContent = pos.name       # ※[0]で生要素を取り出して…
+        g.append label
+
+        svg.append(g)
+
       $('#svg_base').append(svg)  # jQuery適用
