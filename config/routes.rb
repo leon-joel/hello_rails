@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'omikuji/index'
+
   get 'html5_svg/yamanote'
 
   get 'html5_canvas/stroke'
