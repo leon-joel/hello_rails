@@ -45,22 +45,41 @@
     #result ？
     #btn あなたの運命は？
 
-    :javascript
-      /* 他のプログラムに影響を与えないよう, プログラム全体を即時関数で囲む */
-      (function () {
-        "use strict";   // より厳格なエラーチェックを
-        document.getElementById('btn').addEventListener('click', function () {
-          // おみくじ配列
-          var results = ['大吉', '小吉', '中吉', '凶' ];
-          // 0 - result.length-1 の乱数を生成
-          var result = Math.floor(Math.random() * results.length);
-          // おみくじを表示
-          document.getElementById('result').innerHTML = results[result];
-        });
-        document.getElementById('btn').addEventListener('mousedown', function () {
+    -#:javascript
+    -#  /* 他のプログラムに影響を与えないよう, プログラム全体を即時関数で囲む */
+    -#  (function () {
+    -#    "use strict";   // より厳格なエラーチェックを
+    -#    document.getElementById('btn').addEventListener('click', function () {
+    -#      // おみくじ配列
+    -#      var results = ['大吉', '小吉', '中吉', '凶' ];
+    -#      // 0 - result.length-1 の乱数を生成
+    -#      var result = Math.floor(Math.random() * results.length);
+    -#      // おみくじを表示
+    -#      document.getElementById('result').innerHTML = results[result];
+    -#    });
+    -#    document.getElementById('btn').addEventListener('mousedown', function () {
+    -#      this.className = 'pushed'
+    -#    })
+    -#    document.getElementById('btn').addEventListener('mouseup', function () {
+    -#      this.className = ''
+    -#    })
+    -#  })();
+
+    :coffeescript
+      # 他のプログラムに影響を与えないよう, プログラム全体を即時関数で囲む
+      do ->
+        document.getElementById('btn').addEventListener 'click', ->
+          # おみくじ配列
+          results = ['大吉', '小吉', '中吉', '凶' ]
+          # 0 - result.length-1 の乱数を生成
+          result = Math.floor(Math.random() * results.length)
+          # おみくじを表示
+          document.getElementById('result').innerHTML = results[result]
+
+        document.getElementById('btn').addEventListener 'mousedown', ->
           this.className = 'pushed'
-        })
-        document.getElementById('btn').addEventListener('mouseup', function () {
+
+        document.getElementById('btn').addEventListener 'mouseup', ->
           this.className = ''
-        })
-      })();
+
+        return
