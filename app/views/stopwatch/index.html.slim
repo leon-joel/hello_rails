@@ -43,57 +43,47 @@ html
     #stop STOP
     #reset RESET
 
-    javascript:
-      (function () {
-        'use strict';
+    coffee:
+      startTime = 0
+      timerId = 0
+      elapsedTime = 0
+      isRunning = false
 
-        var startTime;
-        var timerId;
-        var elapsedTime = 0;
-        var isRunning = false;
+      startButton = document.getElementById('start')
+      stopButton = document.getElementById('stop')
+      resetButton = document.getElementById('reset')
+      timerText = document.getElementById('timerText')
 
-        var startButton = document.getElementById('start');
-        var stopButton = document.getElementById('stop');
-        var resetButton = document.getElementById('reset');
-        var timerText = document.getElementById('timerText');
+      setButtonState = (start, stop, reset) ->
+        startButton.className = if start then 'btn active' else 'btn inactive'
+        stopButton.className  = if stop  then 'btn active' else 'btn inactive'
+        resetButton.className = if reset then 'btn active' else 'btn inactive'
 
-        function setButtonState(start, stop, reset) {
-          startButton.className = start ? 'btn active' : 'btn inactive';
-          stopButton.className = stop ? 'btn active' : 'btn inactive';
-          resetButton.className = reset ? 'btn active' : 'btn inactive';
-        }
+      setButtonState(true, false, false)
 
-        setButtonState(true, false, false);
+      startButton.addEventListener 'click', ->
+        return if isRunning  # 2重起動防止
+        isRunning = true
+        startTime = Date.now()   # 1970/1/1 00:00:00からの経過ミリ秒
+        updateTimerText()
+        setButtonState(false, true, false)
 
-        startButton.addEventListener('click', function () {
-          if (isRunning) return;  // 2重起動防止
-          isRunning = true;
-          startTime = Date.now();   // 1970/1/1 00:00:00からの経過ミリ秒
-          updateTimerText();
-          setButtonState(false, true, false);
-        });
+      stopButton.addEventListener 'click', ->
+        return if !isRunning  # 停止してるときは何もしない
+        isRunning = false
+        elapsedTime += Date.now() - startTime
+        clearTimeout(timerId)
+        setButtonState(true, false, true)
 
-        stopButton.addEventListener('click', function () {
-          if (!isRunning) return;  // 停止してるときは何もしない
-          isRunning = false;
-          elapsedTime += Date.now() - startTime;
-          clearTimeout(timerId);
-          setButtonState(true, false, true);
-        });
+      resetButton.addEventListener 'click', ->
+        return if isRunning   # 実行中は何もしない
+        timerText.innerHTML = '0.00'
+        elapsedTime = 0
+        setButtonState(true, false, false)
 
-        resetButton.addEventListener('click', function () {
-          if (isRunning) return;  // 実行中は何もしない
-          timerText.innerHTML = '0.00';
-          elapsedTime = 0;
-          setButtonState(true, false, false);
-        });
-
-
-        function updateTimerText() {
-          timerId = setTimeout(function () {
-            var t = Date.now() - startTime + elapsedTime;
-            timerText.innerHTML = (t / 1000).toFixed(2);
-            updateTimerText();
-          }, 10);
-        }
-      })();
+      updateTimerText = ->
+        timerId = setTimeout ->
+          t = Date.now() - startTime + elapsedTime
+          timerText.innerHTML = (t / 1000).toFixed(2)
+          updateTimerText()
+        , 10
