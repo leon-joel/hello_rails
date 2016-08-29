@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'stopwatch/index'
   get 'omikuji/index'
 
   get 'html5_svg/yamanote'
