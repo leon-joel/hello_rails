@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'stop5sec/index'
   get 'stopwatch/index'
   get 'omikuji/index'
 
