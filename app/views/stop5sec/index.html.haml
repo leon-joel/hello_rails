@@ -2,12 +2,12 @@
 %html{lang: "ja"}
   %head
     %meta{charset:"UTF-8"}
-    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'
     = stylesheet_link_tag 'partials/stop5sec', media: 'all', "data-turbolinks-track" => true
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'
+    = javascript_include_tag 'partials/stop5sec'
     %title Stop! 5 sec!
 
   %body
     #result Stop! 5 sec!
     #btn START
 
-    = javascript_include_tag 'partials/stop5sec'
