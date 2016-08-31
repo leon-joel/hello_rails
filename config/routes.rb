@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get 'html5_canvas/stroke'
   get 'html5_canvas/drag_and_drop_image'
+  get 'html5_drag_and_drop/drag_and_drop'
 
   get 'two_column/index'
 

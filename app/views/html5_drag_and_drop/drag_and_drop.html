@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Drag &amp; Drop サンプル 2</title>
+  <style>
+    body {
+      font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Meiryo, "メイリオ", "ＭＳ Ｐゴシック", Verdana, Geneva, Arial, Helvetica;
+      font-size: 80%;
+    }
+    #droparea,#srcarea {
+      width: 500px;
+      height: 80px;
+      border:1px solid #000000;
+      background-color: #eeeeee;
+      padding:1em;
+      margin:1em;
+    }
+    .item {
+      margin:0.5em;
+      border:1px solid #cccccc;
+      cursor:pointer;
+      float:left;
+    }
+    #item6 {
+      background-color:green;
+      width:64px;
+      height:64px;
+    }
+    [draggable=true] {
+      -khtml-user-drag: element;
+    }
+  </style>
+  <script>
+    (function () {
+
+      /* -------------------------------------------------------------------
+       * ページがロードされたときの処理
+       * ----------------------------------------------------------------- */
+      window.addEventListener("load", function() {
+        // ドラッグ要素を取り出す
+        var els = document.querySelectorAll('#srcarea [class=item]');
+        for (var i=0; i<els.length; i++) {
+          // ドラッグ要素ごとにdragstartイベントのリスナーをセット
+          els[i].addEventListener('dragstart', function(evt) {
+            var elm = evt.target;
+            evt.dataTransfer.setData('Text', elm.id);
+            evt.stopPropagation();
+          }, false);
+        }
+        // ドロップ領域に各種イベントリスナーをセット
+        var droparea = document.getElementById("droparea");
+        droparea.addEventListener("dragenter", function(evt){
+          evt.preventDefault();
+        }, false);
+        droparea.addEventListener("dragover", function(evt) {
+          evt.preventDefault();
+        }, false);
+        droparea.addEventListener("drop", function(evt) {
+          var elm = evt.target;
+          var id = evt.dataTransfer.getData('Text');
+          var target = document.getElementById(id);
+          if(target) {
+            droparea.appendChild(target);
+          }
+          evt.preventDefault();
+        }, false);
+      }, false);
+
+    })();
+  </script>
+</head>
+<body>
+
+<div id="srcarea">
+  <img src="/ie.png" id="item1" class="item"/>
+  <img src="/firefox.png" id="item2" class="item"/>
+  <img src="/safari.png" id="item3" class="item"/>
+  <img src="/chrome.png" id="item4" class="item"/>
+  <img src="/opera.png" id="item5" class="item"/>
+  <div id="item6" class="item" draggable="true"></div>
+</div>
+<div id="droparea"></div>
+
+</body>
+</html>
