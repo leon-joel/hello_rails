@@ -32,6 +32,8 @@ module HelloRails
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    # bootstrap対応で追記 Railstutorial 5.1.2
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.bmp)
 
     # Viewの描画ログを出力しない
     config.action_view.logger = nil

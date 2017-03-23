@@ -8,7 +8,10 @@
     -#%script{ src: "http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" }
 
     -# ※slimはAjax用関数を取り除いた版
-    %script{ src: "https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.slim.min.js" }
+    %script{ src: "//ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.slim.min.js" }
+
+    -#%script{ src: "svg-pan-zoom.js" }
+    = javascript_include_tag "svg-pan-zoom"
 
     -#%script{ src: "https://code.jquery.com/jquery-3.1.0.slim.min.js",
     -#         integrity: "sha256-cRpWjoSOw5KcyIOaZNo4i6fZ9tKPhYYb6i5T9RSVJG8=",
@@ -76,11 +79,21 @@
       # もっとjQueryを適用できるよ(^^)/
       #   http://dot-town-lab.com/laboratory/item/68
       SVG = 'http://www.w3.org/2000/svg'
+      XLINK = 'http://www.w3.org/1999/xlink'
       # svg要素を作る
       # svg = document.createElementNS(SVG,'svg')
       svg = $(document.createElementNS(SVG, 'svg'))   # jQuery適用
       # svg.attr( {width:600, height:800} )           # ※連想配列をJavaScriptっぽく書いても良いが
       svg.attr width:600, height:800                  #   CoffeeScriptならこんな感じに書いた方がそれっぽい
+      svg.attr id:'svg-core'
+
+      #      <!-- Chromeの場合、サイズを指定しなくても表示されるが、FFの場合は指定しないと表示されない。-->
+      #      <image id="img-boat" xlink:href="BOAT.bmp" width="200" height="200" />
+      image = $(document.createElementNS(SVG,'image'))
+      image.attr id:"img-boat",width:200, height:200
+      image[0].setAttributeNS(XLINK, "href", "/BOAT.bmp")
+      svg.append(image)
+
 
       yamanote = [
         { name:"品川駅",        latitude:35.630152,        longitude:139.74044      },
@@ -156,3 +169,10 @@
         svg.append(g)
 
       $('#svg_base').append(svg)  # jQuery適用
+
+      panZoomTiger = svgPanZoom('#svg-core', {
+       controlIconsEnabled: true
+       zoomScaleSensitivity: 0.4
+       contain: true    # 意味不明
+       });
+

@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 
+//= require svg-pan-zoom
+
 // common配下のjs(CoffeeScript)を全て（再帰で）application.jsに取り込む。
 // ※javascript直下や commonディレクトリ以外のjs(CoffeeScript)は取り込まれないので、
 //   config/initializers/assets.rbに記載しておかないと、プリコンパイルの対象(?)にならず使えない。

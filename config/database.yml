@@ -7,17 +7,17 @@
 #  host: localhost
 
 development:
-  adapter: mysql2
+  adapter: postgresql
   host: localhost
-  username: root
+  username: postgres
   password:
   database: hello_rails_development
   encoding: utf8
 
 test:
-  adapter: mysql2
+  adapter: postgresql
   host: localhost
-  username: root
+  username: postgres
   password:
   encoding: utf8
   database: hello_rails_test
